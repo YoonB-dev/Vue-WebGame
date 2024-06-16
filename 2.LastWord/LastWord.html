@@ -3,8 +3,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>끝말잇기</title>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-    
+    <div id = "root">
+        <div>문제:{{first}}</div>
+        <form v-on:submit="onsubmitForm">
+            <input type = "text" ref="answer" v-model="second">
+            <button type="submit">입력</button>
+        </form>
+        <div v-if>{{result}}</div>
+    </div>  
 </body>
+<script>
+    const app = new Vue({
+        el: "#root", 
+        data:{
+            first:'비행기',
+            second:'',
+            result:'',
+        },
+        methods:{
+            onsubmitForm(e){
+                e.preventDefault();
+                if(this.first[this.first.length-1]=== this.second[0]){
+                    this.result = '딩동댕';
+                    this.first = this.second;
+                    this.second = '';
+                }
+                else{
+                    this.result = "떙!";
+                    this.second = '';
+                }
+                this.$refs.answer.focus();
+            },
+        },
+    });
+</script>
 </html>
