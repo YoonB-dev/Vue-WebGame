@@ -7,21 +7,30 @@
 </head>
 <body>
     <div id = "root">
-        <div>문제:{{first}}</div>
-        <form v-on:submit="onsubmitForm">
-            <input type = "text" ref="answer" v-model="second">
-            <button type="submit">입력</button>
-        </form>
-        <div v-if>{{result}}</div>
+        <word-replay start_word = "이윤형"></word-replay>
+        <word-replay start_word = "김준현"></word-replay>
+        <word-replay start_word = "신재훈"></word-replay>
     </div>  
 </body>
 <script>
-    const app = new Vue({
-        el: "#root", 
-        data:{
-            first:'비행기',
-            second:'',
-            result:'',
+    Vue.component('word-replay' , {
+        template:`
+        <div>
+            <div>문제:{{first}}</div>
+            <form v-on:submit="onsubmitForm">
+                <input type = "text" ref="answer" v-model="second">
+                <button type="submit">입력</button>
+            </form>
+            <div v-if>{{result}}</div>
+        </div>
+        `,
+        props:['start_word'],
+        data(){
+            return{
+                first:this.start_word,
+                second:'',
+                result:'',
+            }
         },
         methods:{
             onsubmitForm(e){
@@ -38,6 +47,11 @@
                 this.$refs.answer.focus();
             },
         },
+    })
+</script>
+<script>
+    const app = new Vue({
+        el: "#root", 
     });
 </script>
 </html>
